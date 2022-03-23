@@ -249,6 +249,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <form action="{{ route('checkout.store') }}" method="POST" id="payment-form" enctype="multipart/form-data">
                     @csrf
 
@@ -261,14 +262,14 @@
                     {{-- @endif--}}
                     {{-- </select>--}}
 
-                    <h2 class="shipping-head mt-5 mb-3">Payment</h2>
+                    <h2 class="shipping-head mt-5 mb-3">Payment Details</h2>
                     <div class="form-group">
                         <input type="text" placeholder="Name On Card" class="form-control" id="name_on_card" name="name_on_card" value="">
                     </div>
 
                     <div class="form-group">
-                        <label for="card-element">Card</label>
-                        <div id="card-element"  ref="cardElement">
+
+                        <div id="card-element" ref="cardElement">
                             <!-- A Stripe Element will be inserted here. -->
                         </div>
 
@@ -278,15 +279,17 @@
                     </div>
                     <span id="error"></span>
                     <div class="spacer"></div>
-
+                   
+                    <!----if(count((is_countable($quotes)?$quotes:[])) > 0) -->
 
                     <input hidden value="{{$address->id}}" id="address-input" name="address">
-
+                    
                     {{-- <h2 class="shipping-head mt-5 mb-3">Shipping Options</h2> --}}
+
                     @if($not_arr == 0)
-                    @if(count($quotes) > 0)
+                    @if(count((array)$quotes) > 0)
                     @foreach($quotes as $quote)
-                    @if($quote->ServiceType == "FEDEX_GROUND")
+                    @if(($quote->ServiceType) == "FEDEX_GROUND" )
                     <label onclick="update_price({{$quote->RatedShipmentDetails->ShipmentRateDetail->TotalNetChargeWithDutiesAndTaxes->Amount}})">
                         <input required type="radio" name="quote" class="card-input-element d-none" value="{{$loop->iteration}}" id="demo{{$loop->iteration}}">
                         <div class="card card-body bg-light d-flex flex-row justify-content-between align-items-center" style="color: black">
@@ -305,8 +308,7 @@
                     {{-- </label>--}}
                     {{-- @endif--}}
                     @endforeach
-                    {{-- @else
-                        No delivery available at this time --}}
+                    {{-- @else No delivery available at this time --}}
                     @endif
                     @else
                     <label onclick="update_price({{$quotes->RatedShipmentDetails->ShipmentRateDetail->TotalNetChargeWithDutiesAndTaxes->Amount}})">
@@ -316,6 +318,7 @@
                             ${{$quotes->RatedShipmentDetails->ShipmentRateDetail->TotalNetChargeWithDutiesAndTaxes->Amount}} at {{\Carbon\Carbon::parse($quotes->DeliveryTimestamp)->toDayDateTimeString()}}
                         </div>
                     </label>
+
                     @endif
                     <h2 class="shipping-head mt-5 mb-3">Billing Address</h2>
                     <div class="card mb-2">
@@ -379,14 +382,14 @@
                 @foreach(Cart::content() as $item)
                 <div class="row ml-2 mb-2">
                     <div class="col-2 p-0">
-                        <img class="img-thumbnail pl-2" src="{{asset('storage/product/'.$item->model->thumbnail)}}">
+                        <img class="img-thumbnail pl-2" src="{{asset('storage/storage/product/'.$item->model->thumbnail)}}">
                     </div>
                     <div class="col-10 p-0 mt-2">
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-7 d-flex">
-                                        <h5 class="ml-1 b-name">{{\Illuminate\Support\Str::limit($item->model->user->vendor_profile->brand_name, 6, $end="..")}}</h5>
+                                        <h5 class="ml-1 b-name">{{\Illuminate\Support\Str::limit($item->model->user->vendor_profile->brand_name ?? '', 6, $end="..")}}</h5>
                                         <h5 class="ml-1 p-name">{{$item->model->name}}</h5>
                                     </div>
                                     <div class="col-3">

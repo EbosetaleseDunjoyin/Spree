@@ -71,7 +71,7 @@ class AuthController extends Controller
             'role_id' => '3'
         ]);
 
-        // Mail::send(new UserRegisterMail($user));
+        Mail::send(new UserRegisterMail($user));
 
         $token = $user->createToken('auth_token')->plainTextToken;
 

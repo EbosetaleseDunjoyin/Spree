@@ -62,7 +62,7 @@
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>
-                                                <div class="m-r-10"><img src="{{asset('storage/product/'.$product->thumbnail)}}" alt="user" class="rounded" width="45"></div>
+                                                <div class="m-r-10"><img src="{{asset('storage/storage/product/'.$product->thumbnail)}}" alt="Item image" class=" img-fluid rounded" width="200"></div>
                                             </td>
                                             <td>{{$product->id}}</td>
                                             <td>{{$product->name}}</td>

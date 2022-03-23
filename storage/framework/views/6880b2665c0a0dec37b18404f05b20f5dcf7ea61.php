@@ -1,29 +1,33 @@
 <div class="dashboard-header  navbar-dark">
     <div class="menu-list">
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004dd9;">
-            <div class="navbar-brand2 " >
-                <a href="<?php echo e(route('home')); ?>" style="text-transform: capitalize;">Spree</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav2" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav2">
-                <ul class="navbar-nav ml-auto mr-5 ">
-                    <?php ($user = \Illuminate\Support\Facades\Auth::user()); ?>
-                    <!-- <li class="nav-item ">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #004dd9; z-index:2;">
+                <div class="navbar-brand2 ">
+                    <a href="<?php echo e(route('home')); ?>" style="text-transform: capitalize;">Spree</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav2" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav2">
+                    <ul class="navbar-nav ml-auto mr-5 ">
+                        <?php ($user = \Illuminate\Support\Facades\Auth::user()); ?>
+                        <!-- <li class="nav-item ">
                         <a href="#" class="nav-link "><?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?></a>
                     </li> -->
-                    <li class=" nav-item logout ">
-                        <a class="nav-link " onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="#"><i class="fas fa-power-off mr-2 text-danger"></i>Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                        <li class=" nav-item logout ">
+                            <a class="nav-link " onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
     </div>
 </div>
 <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
     <?php echo csrf_field(); ?>
 </form>
+<br><br><br>
 
 <div class="nav-left-sidebar sidebar-dark">
     <div class="menu-list">
@@ -72,9 +76,7 @@
                     <li class="nav-item">
                         <a class="nav-link <?php if(\Request::route()->getName() == 'admin.dashboard.dispatch.index'): ?>active <?php else: ?> <?php endif; ?>" href="<?php echo e(route('admin.dashboard.dispatch.index')); ?>">Dispatchs</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="#"><i class="fas fa-power-off mr-2 text-danger"></i>Logout</a>
-                    </li>
+
                 </ul>
             </div>
         </nav>

@@ -173,14 +173,14 @@
                 @foreach(Cart::content() as $item)
                     <div class="row ml-2 mb-3">
                         <div class="col-2 p-0">
-                            <img class="img-thumbnail pl-2" src="{{asset('storage/product/'.$item->model->thumbnail)}}">
+                            <img class="img-thumbnail pl-2" src="{{asset('storage/storage/product/'.$item->model->thumbnail)}}">
                         </div>
                         <div class="col-10 p-0 mt-2">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-7 d-flex">                                            
-                                            <h5 class="ml-1 b-name">{{\Illuminate\Support\Str::limit($item->model->user->vendor_profile->brand_name, 6, $end="..")}}</h5>                                            
+                                            <h5 class="ml-1 b-name">{{\Illuminate\Support\Str::limit($item->model->user->vendor_profile->brand_name ?? '', 6, $end="..")}}</h5>                                            
                                             <h5 class="ml-1 p-name">{{$item->model->name}}</h5>
                                         </div>
                                         <div class="col-3">

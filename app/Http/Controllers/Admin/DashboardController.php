@@ -54,12 +54,12 @@ class DashboardController extends Controller
         $users = User::whereDate('created_at','>',Carbon::now()->subDays(7))
             ->with('roles')->get();
         $w_c_count = 0;
-        // foreach ($users as $user)
-        // {
-        //     if ($user->roles()->first()->name == 'Standard'){
-        //         $w_c_count++;
-        //     }
-        // }
+        foreach ($users as $user)
+        {
+            if ($user->roles()->first()->name == 'Standard'){
+                $w_c_count++;
+            }
+        }
 
         //--orders--
         $w_orders = OrderProduct::whereDate('created_at','>',Carbon::now()->subDays(7))
@@ -95,12 +95,12 @@ class DashboardController extends Controller
         $users = User::whereDate('created_at','>',Carbon::now()->subDays(30))
             ->with('roles')->get();
         $m_c_count = 0;
-        // foreach ($users as $user)
-        // {
-        //     if ($user->roles()->first()->name == 'Standard'){
-        //         $m_c_count++;
-        //     }
-        // }
+        foreach ($users as $user)
+        {
+            if ($user->roles()->first()->name == 'Standard'){
+                $m_c_count++;
+            }
+        }
 
         //orders
         $m_orders = OrderProduct::whereDate('created_at','>',Carbon::now()->subDays(30))

@@ -73,6 +73,29 @@ class CheckoutController extends Controller
         $temp = new Helper();
 
         $quotes = $temp->shippingQuote($address);
+        if ($quotes == []) {
+
+            //return response()->json(['message' => 'No delivery available']);
+            return redirect()->route('cart.shipping')->with('popup_error', 'Please confirm your address');
+        }
+
+        if (is_array($quotes)) {
+            $flag = 0;
+
+            foreach ($quotes as $quote) {
+                if ($quote->ServiceType == 'FEDEX_GROUND') {
+                    $quotes = $quote;
+                    $flag = 1;
+                    break;
+                }
+            }
+
+            if ($flag == 0) {
+                return response()->json(['message' => 'No delivery available']);
+            }
+        } elseif ($quotes->ServiceType != "FEDEX_GROUND") {
+            return response()->json(['message' => 'No delivery available']);
+        }
   
         //{{ Carbon\Carbon::parse(Carbon\Carbon::now()->addDay(5))->format('M d') }} - {{ Carbon\Carbon::parse(Carbon\Carbon::now()->addDay(7))->format('M d') }}
         //dd($quotes);

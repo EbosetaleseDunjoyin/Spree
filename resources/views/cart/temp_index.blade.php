@@ -40,7 +40,7 @@
                         <div class="productRow d-flex">
                             <div class="d-flex">
                                 <div class="proImg">
-                                    <img src="{{asset('storage/product/'.$item->model->thumbnail)}}" alt="product">
+                                    <img src="{{asset('storage/storage/product/'.$item->model->thumbnail)}}" alt="product">
                                 </div>
                                 <div class="proDesc ml-4">
                                     <div class="d-flex">

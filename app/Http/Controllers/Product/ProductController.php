@@ -62,7 +62,7 @@ class ProductController extends Controller
         // foreach ($request['thumbnail'] as $thumbnail) {
         //     array_push($fileNameToStore, Helper::fileStore($request->user(), $thumbnail,'product'));
         // }
-        $fileNameToStore = Helper::fileStore($request->user(), $request['thumbnail'],'product');
+        $fileNameToStore = Helper::fileStore($request->user(), $request['thumbnail'], 'storage/product');
         $slug = Helper::createSlug(Product::class, $request['name']);
         $product = Product::create([
             'user_id' => auth()->user()->id,
@@ -121,7 +121,7 @@ class ProductController extends Controller
      */
     public function show($slug, $category = null)
     {
-        $product = Product::with(['sizes', 'user', 'user.vendor_profile', 'images'])->where('slug',$slug)->first();
+        $product = Product::with(['sizes', 'user', 'user.vendor_profile', 'thumbnail'])->where('slug',$slug)->first();
 
         $recommendations = new Recommendation;
 
@@ -156,15 +156,15 @@ class ProductController extends Controller
         //Check if user has updated the thumbnail
         if ($request->has('thumbnail')){
             foreach ($request['thumbnail'] as $thumbnail) {
-                array_push($fileNameToStore, Helper::fileStore($request->user(), $thumbnail,'product'));
+                array_push($fileNameToStore, Helper::fileStore($request->user(), $thumbnail,'storage/product'));
             }
         }else {
-            if (count($product->images) == 0) {
+            if (count($product->thumbnail) == 0) {
                 array_push($fileNameToStore, $product->thumbnail);
             } else {
                 $fileNameToStore = array_map(function($img) {
                     return $img['path'];
-                }, $product->images->toArray());
+                }, $product->thumbnail->toArray());
             }
         }
 

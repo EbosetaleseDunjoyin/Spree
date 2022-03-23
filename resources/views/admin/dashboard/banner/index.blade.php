@@ -56,7 +56,7 @@
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>
-                                                <div class="m-r-10"><img src="{{asset('storage/banner/'.$banner->image)}}" alt="user" class="" width="100"></div>
+                                                <div class="m-r-10"><img src="{{asset('storage/storage/banner/'.$banner->image)}}" alt="user" class="" width="100"></div>
                                             </td>
                                             <td>{{$banner->type}}</td>
                                             <td>{{$banner->url}}</td>

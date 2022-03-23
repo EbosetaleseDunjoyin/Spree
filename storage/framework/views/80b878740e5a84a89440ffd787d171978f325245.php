@@ -152,7 +152,7 @@
                 </div>
             </div>
             <div class="pro_col2">
-                <p class="underline font-thin"><?php echo e($product->user->vendor_profile->brand_name); ?>
+                <p class="underline font-thin"><?php echo e($product->user->vendor_profile->brand_name ?? ''); ?>
 
                     <h2 class="heading m-0 p-0 mb-3">
                         <?php echo e($product->name); ?>

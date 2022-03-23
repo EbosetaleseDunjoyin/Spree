@@ -249,6 +249,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <form action="<?php echo e(route('checkout.store')); ?>" method="POST" id="payment-form" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
 
@@ -261,14 +262,14 @@
                     
                     
 
-                    <h2 class="shipping-head mt-5 mb-3">Payment</h2>
+                    <h2 class="shipping-head mt-5 mb-3">Payment Details</h2>
                     <div class="form-group">
                         <input type="text" placeholder="Name On Card" class="form-control" id="name_on_card" name="name_on_card" value="">
                     </div>
 
                     <div class="form-group">
-                        <label for="card-element">Card</label>
-                        <div id="card-element"  ref="cardElement">
+
+                        <div id="card-element" ref="cardElement">
                             <!-- A Stripe Element will be inserted here. -->
                         </div>
 
@@ -278,15 +279,24 @@
                     </div>
                     <span id="error"></span>
                     <div class="spacer"></div>
+                    <label onclick="update_price(<?php echo e($quotes->RatedShipmentDetails->ShipmentRateDetail->TotalNetChargeWithDutiesAndTaxes->Amount); ?>)">
+                        <input required type="radio" name="quote" class="card-input-element d-none" value="1" id="demo1">
+                        <div class="card card-body bg-light d-flex flex-row justify-content-between align-items-center" style="color: black">
+                            <span style="font-weight: bold">Standard Shipping</span>
+                            $<?php echo e($quotes->RatedShipmentDetails->ShipmentRateDetail->TotalNetChargeWithDutiesAndTaxes->Amount); ?> at <?php echo e(\Carbon\Carbon::parse($quotes->DeliveryTimestamp)->toDayDateTimeString()); ?>
 
+                        </div>
+                    </label>
+                    <!----if(count((is_countable($quotes)?$quotes:[])) > 0) -->
 
                     <input hidden value="<?php echo e($address->id); ?>" id="address-input" name="address">
-
                     
+                    
+
                     <?php if($not_arr == 0): ?>
-                    <?php if(count($quotes) > 0): ?>
+                    <?php if(count((array)$quotes) > 0): ?>
                     <?php $__currentLoopData = $quotes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $quote): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php if($quote->ServiceType == "FEDEX_GROUND"): ?>
+                    <?php if(($quote->ServiceType) == "FEDEX_GROUND" ): ?>
                     <label onclick="update_price(<?php echo e($quote->RatedShipmentDetails->ShipmentRateDetail->TotalNetChargeWithDutiesAndTaxes->Amount); ?>)">
                         <input required type="radio" name="quote" class="card-input-element d-none" value="<?php echo e($loop->iteration); ?>" id="demo<?php echo e($loop->iteration); ?>">
                         <div class="card card-body bg-light d-flex flex-row justify-content-between align-items-center" style="color: black">
@@ -317,6 +327,7 @@
 
                         </div>
                     </label>
+
                     <?php endif; ?>
                     <h2 class="shipping-head mt-5 mb-3">Billing Address</h2>
                     <div class="card mb-2">
@@ -380,14 +391,14 @@
                 <?php $__currentLoopData = Cart::content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="row ml-2 mb-2">
                     <div class="col-2 p-0">
-                        <img class="img-thumbnail pl-2" src="<?php echo e(asset('storage/product/'.$item->model->thumbnail)); ?>">
+                        <img class="img-thumbnail pl-2" src="<?php echo e(asset('storage/storage/product/'.$item->model->thumbnail)); ?>">
                     </div>
                     <div class="col-10 p-0 mt-2">
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-7 d-flex">
-                                        <h5 class="ml-1 b-name"><?php echo e(\Illuminate\Support\Str::limit($item->model->user->vendor_profile->brand_name, 6, $end="..")); ?></h5>
+                                        <h5 class="ml-1 b-name"><?php echo e(\Illuminate\Support\Str::limit($item->model->user->vendor_profile->brand_name ?? '', 6, $end="..")); ?></h5>
                                         <h5 class="ml-1 p-name"><?php echo e($item->model->name); ?></h5>
                                     </div>
                                     <div class="col-3">

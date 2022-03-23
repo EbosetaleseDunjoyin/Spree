@@ -43,9 +43,11 @@ class CheckoutController extends Controller
 
 
         $quotes = $temp->shippingQuote($address);
+        
 
         if ($quotes == [])
         {
+            
             return response()->json(['message' => 'No delivery available']);
         }
 
@@ -77,7 +79,8 @@ class CheckoutController extends Controller
                 'arrival_date' => \Carbon\Carbon::parse($quotes->DeliveryTimestamp)->toDayDateTimeString()
             ],
             'subtotal' => Cart::subtotal(),
-            'tax' => Cart::instance('default')->tax()
+            'tax' => Cart::instance('default')->tax(),
+            'quotes' => $quotes
         ], 200);
     }
 
@@ -90,10 +93,10 @@ class CheckoutController extends Controller
         $temp = new Helper();
         $quotes = $temp->shippingQuote($request->user_address);
 
-        // $serviceType = array_column($quotes, 'ServiceType');
-        // if (!in_array('FEDEX_GROUND',$serviceType)){
-        //     return redirect()->route('cart.index')->with('popup_success','NO delivery available for this product at this time');
-        // }
+        $serviceType = array_column($quotes, 'ServiceType');
+        if (!in_array('FEDEX_GROUND',$serviceType)){
+            return redirect()->route('cart.index')->with('popup_success','NO delivery available for this product at this time');
+        }
 
         //dd($quotes[$request->quote-1]->RatedShipmentDetails->ShipmentRateDetail->TotalNetChargeWithDutiesAndTaxes->Amount);
         $tax = config('cart.tax') / 100;

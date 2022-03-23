@@ -26,7 +26,13 @@ class Helper
             //file name
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
 
+            // $folder = base_path().'/public/storage/storage/'.$folder;
+
+
             $path = $file->storeAs($folder, $fileNameToStore,'public');
+           // $path = Storage::put('storage/'.$folder.'/'.$fileNameToStore, $fileNameToStore );
+           //Storage::disk('public')->put($fileNameToStore)
+
             return $fileNameToStore;
         }catch (\Exception $e){
             return $e->getMessage();
@@ -139,6 +145,7 @@ class Helper
             return false;
         }
     }
+    
 
     public function shippingQuote($address)
     {

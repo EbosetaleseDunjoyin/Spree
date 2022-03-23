@@ -1222,7 +1222,11 @@ Top Header
 .dashboard-header {}
 
 .dashboard-header .navbar {
-    padding: 0px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding-left: -20px;
     border-bottom: 1px solid #e6e6f2;
     -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
     box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
@@ -1232,6 +1236,7 @@ Top Header
 
 .dashboard-header .navbar .navbar-nav .logout .nav-link {
     color: #ffffff !important;
+    font-size: 20px;
 }
 
 .navbar-brand {
@@ -1253,20 +1258,26 @@ Top Header
 .navbar-brand2 a {
     display: inline-block;
     margin-right: 1rem;
-    margin-left: 7rem;
+    margin-left: 2rem;
     line-height: inherit;
     white-space: nowrap;
     padding: 11px 20px;
-    font-size: 30px;
+    font-size: 40px;
     text-transform: uppercase;
     font-weight: 700;
     color: #ffffff !important;
 }
 
-@media(max-width:420) {
-    .navbar-brand2 a{
+@media only screen and (max-width: 500px) {
+    .navbar-brand2 a {
         margin-left: 0 !important;
     }
+
+    .dashboard-header .navbar {
+        padding: 0.5rem;
+
+    }
+
 
     .navbar-brand2:hover {
         color: #007bff;
@@ -1721,12 +1732,16 @@ Left Navigation Sidebar
 .nav-left-sidebar .navbar {
     position: relative;
     padding: 14px;
+    margin-left: 40px;
+    margin-top: 20px;
 }
 
-.nav-left-sidebar .navbar-nav .nav-item {}
+.nav-left-sidebar .navbar-nav .nav-item {
+    font-size: 15px;
+}
 
 .nav-left-sidebar .navbar-nav .nav-link {
-    font-size: 14px;
+
     padding: 12px;
     /* margin-bottom: 2px; */
     color: #24274a !important;
